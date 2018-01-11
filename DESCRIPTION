@@ -1,0 +1,25 @@
+Package: tfconvert
+Type: Package
+Title: tfconvert: Convert TensorFlow Models
+Version: 0.1.0
+Authors@R: c(
+    person("Javier", "Luraschi", email = "javier@rstudio.com", role = c("aut", "cre")),
+    person("L.", "Leon Chen", role = c("aut"), comment = "kerasjs converter"),
+    person(family = "RStudio", role = c("cph"))
+  )
+Maintainer: The package maintainer <yourself@somewhere.net>
+Description: More about what it does (maybe more than one line)
+    Use four spaces when indenting paragraphs within the Description.
+License: Apache License 2.0
+Encoding: UTF-8
+LazyData: true
+Imports:
+  reticulate,
+  tensorflow
+Suggests:
+  testthat
+Remotes:
+  rstudio/reticulate,
+  rstudio/tensorflow
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 6.0.1
