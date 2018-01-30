@@ -8,6 +8,37 @@
         filepath: "%KERAJS_MODEL%",
         gpu: true
       });
+
+      model
+        .ready()
+        .then(() => {
+          document.getElementById("btnPredict").disabled = false;
+        })
+        .catch(err => {
+          console.log("KerasJS Error: ", err)
+        })
+
+      var modelPredict = function() {
+        var data = Array(784);
+        for (var idx = 0; idx < data.length; idx++) data[idx] = 0;
+
+        var inputData = {
+          images: new Float32Array(data)
+        }
+
+        model.predict(inputData)
+          .then(outputData => {
+
+          })
+          .catch(err => {
+            console.log("KerasJS Error: ", err)
+          })
+      }
     </script>
+    <form onsubmit="event.preventDefault();">
+      <textarea id="txtInput" rows="4" cols="50"></textarea>
+      <textarea id="txtOutput" rows="4" cols="50"></textarea>
+      <button id="btnPredict" disabled="true" onclick="modelPredict();">Predict!</button>
+    </form>
   </body>
 </html>
