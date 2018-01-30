@@ -15,7 +15,7 @@ convert_hdf5model.kerasjs_conversion <- function(
 
   py_os <- reticulate::import("os")
   py_getcwd <- py_os$getcwd()
-  py_os$chdir(system.file("kerasjs", package = "tfconvert"))
+  py_os$chdir(system.file("python", package = "tfconvert"))
   on.exit(py_os$chdir(py_getcwd), add = TRUE)
 
   py_subprocess <- reticulate::import("subprocess")
