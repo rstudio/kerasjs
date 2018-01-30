@@ -1,0 +1,13 @@
+<html>
+  <head>
+    <script src="scripts/keras.min.js" charset="UTF-8"></script>
+  </head>
+  <body>
+    <script>
+      var model = new KerasJS.Model({
+        filepath: "%KERAJS_MODEL%",
+        gpu: true
+      });
+    </script>
+  </body>
+</html>
