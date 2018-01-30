@@ -16,13 +16,14 @@ kerasjs_scafold <- function(model, path = "scafold") {
 
   index_path <- file.path(path, "index.html")
 
-  models_path <- file.path(path, "models")
-  models_file <- file.path(models_path, basename(model))
-  dir.create(models_path)
+  models_abs_path <- file.path(path, "models")
+  models_abs_file <- file.path(models_abs_path, basename(model))
+  dir.create(models_abs_path)
   file.copy(
     model,
-    models_file
+    models_abs_file
   )
 
-  file_replace(index_path, "\\%KERAJS_MODEL\\%", models_file)
+  models_rel_file <- file.path("models", basename(model))
+  file_replace(index_path, "\\%KERAJS_MODEL\\%", models_rel_file)
 }
