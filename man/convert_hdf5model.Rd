@@ -4,8 +4,8 @@
 \alias{convert_hdf5model}
 \title{Converts a HDF5 Model}
 \usage{
-convert_hdf5model(model_name = NULL, format = c("kerasjs"),
-  target = file_path_sans_ext(model_name), ...)
+convert_hdf5model(model_name = NULL, format = c("kerasjs"), target = NULL,
+  ...)
 }
 \arguments{
 \item{model_name}{The path to the HDF5 exported model, as a string.}

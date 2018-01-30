@@ -5,7 +5,7 @@
 \title{Converts HDF5 Model to KerasJS}
 \usage{
 \method{convert_hdf5model}{kerasjs_conversion}(model_name = NULL,
-  target = "kerasjs", ...)
+  target = file_path_sans_ext(model_name), ...)
 }
 \arguments{
 \item{model_name}{The path to the HDF5 exported model, as a string.}
