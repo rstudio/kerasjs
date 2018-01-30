@@ -4,7 +4,7 @@ Title: tfconvert: Convert TensorFlow Models
 Version: 0.1.0
 Authors@R: c(
     person("Javier", "Luraschi", email = "javier@rstudio.com", role = c("aut", "cre")),
-    person("L.", "Leon Chen", role = c("aut"), comment = "kerasjs converter"),
+    person("L.", "Leon Chen", role = c("aut"), comment = "kerasjs"),
     person(family = "Ajax.org B.V.", role=c("ctb", "cph"), comment="Ace"),
     person(family = "RStudio", role = c("cph"))
   )

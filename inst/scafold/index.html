@@ -7,6 +7,7 @@
         background: linear-gradient(0deg,#ccc,#f0f0f0);
         margin: 0;
         font-family: Open Sans,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica Neue,sans-serif;
+        color: #333;
       }
 
       nav {
@@ -18,7 +19,7 @@
         padding-left: 30px;
         font-size: 22px;
         box-shadow: 0 2px 4px -1px rgba(0,0,0,.2), 0 4px 5px 0 rgba(0,0,0,.14), 0 1px 10px 0 rgba(0,0,0,.12);
-        line-height: 2.1;
+        line-height: 2.4;
       }
 
       textarea, button {
@@ -53,14 +54,17 @@
         width: 100%;
         height: 240px;
         border: solid 1px #CCC;
-        margin: 10px;
+        margin: 10px 0 10px 0;
       }
     </style>
   </head>
   <body>
-    <nav>KerasJS Prediction Template</nav>
+    <nav>KerasJS Template</nav>
     <form onsubmit="event.preventDefault();">
+      <p>KerasJS: Run Keras models in the browser, with GPU support using WebGL</p>
+      <span>Input:</span>
       <div id="aceInput" class="aceEditor"></div>
+      <span>Ouput:</span>
       <div id="aceOutput" class="aceEditor"></div>
       <button id="btnPredict" disabled="true" onclick="modelPredict();">Predict!</button>
     </form>
