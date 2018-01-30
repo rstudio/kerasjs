@@ -4,7 +4,9 @@ file_replace <- function(path, pattern, replacement) {
   writeLines(changed, con = path)
 }
 
-kerasjs_scafold <- function(model, path = "scafold") {
+#' @importFrom servr httd
+#' @export
+kerasjs_scafold <- function(model, path = "scafold", browse = interactive()) {
   unlink(path, recursive = TRUE)
   dir.create(path)
 
@@ -26,4 +28,9 @@ kerasjs_scafold <- function(model, path = "scafold") {
 
   models_rel_file <- file.path("models", basename(model))
   file_replace(index_path, "\\%KERAJS_MODEL\\%", models_rel_file)
+
+  if (browse) {
+    message("Launching scafold with: servr::httd(\"", model, "\")")
+    httd(model)
+  }
 }
