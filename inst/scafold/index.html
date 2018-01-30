@@ -28,6 +28,9 @@
         width: 100%;
         height: 200px;
         resize: none;
+        font-size: 22px;
+        padding: 10px;
+        color: #333;
       }
 
       form {
@@ -51,7 +54,7 @@
           document.getElementById("btnPredict").disabled = false;
         })
         .catch(err => {
-          console.log("KerasJS Error: ", err)
+          document.getElementById('txtOutput').value = err;
         })
 
       var modelPredict = function() {
@@ -59,15 +62,15 @@
         for (var idx = 0; idx < data.length; idx++) data[idx] = 0;
 
         var inputData = {
-          images: new Float32Array(data)
+          input: new Float32Array(data)
         }
 
         model.predict(inputData)
           .then(outputData => {
-
+            document.getElementById('txtOutput').value = JSON.stringify(outputData, null, 2);
           })
           .catch(err => {
-            console.log("KerasJS Error: ", err)
+            document.getElementById('txtOutput').value = err;
           })
       }
     </script>
