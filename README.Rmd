@@ -27,7 +27,7 @@ After a model is trained in Keras, export this model to HDF5 format using
 library(kerasjs)
 
 # replace with your HDF5 model
-model_path <- system.file("models/keras-mnist.hdf5")
+model_path <- system.file("models/keras-mnist.hdf5", package = "kerasjs")
   
 kerasjs_convert(model_path)
 ```
