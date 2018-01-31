@@ -4,10 +4,33 @@ file_replace <- function(path, pattern, replacement) {
   writeLines(changed, con = path)
 }
 
+tensor_build_example <- function(tensor) {
+  layer_dims <- tensor$shape$as_list()
+  sequence_dim <- Filter(is.integer, layer_dims)
+  rep(0, sequence_dim)
+}
+
+#' @importFrom keras load_model_hdf5
 kerasjs_input_examples <- function(hdf5_model) {
-  list(
-    input = rep(0, 784)
-  )
+  model <- load_model_hdf5(hdf5_model, compile = FALSE)
+  if ("keras.models.Sequential" %in% class(model)) {
+    list(
+      input = tensor_build_example(model$input)
+    )
+  }
+  else {
+    example <- lapply(
+      model$input_layers,
+      function(layer) tensor_build_example(layer$input)
+    )
+
+    names(example) <- lapply(
+      model$input_layers,
+      function(layer) layer$name
+    )
+
+    example
+  }
 }
 
 #' @importFrom servr httd
