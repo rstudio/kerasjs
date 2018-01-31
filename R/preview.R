@@ -11,8 +11,8 @@ tensor_build_example <- function(tensor) {
 }
 
 #' @importFrom keras load_model_hdf5
-kerasjs_input_examples <- function(hdf5_model) {
-  model <- load_model_hdf5(hdf5_model, compile = FALSE)
+kerasjs_input_examples <- function(model_path) {
+  model <- load_model_hdf5(model_path, compile = FALSE)
   if ("keras.models.Sequential" %in% class(model)) {
     list(
       input = tensor_build_example(model$input)
@@ -38,10 +38,18 @@ kerasjs_preview_source <- function(path) {
   readLines(source_file)
 }
 
+#' Previews a KerasJS Model
+#'
+#' Previews a KerasJS model by launching it's runtime in the browser.
+#'
+#' @param model_path The path to the exported HDF5 model, as a string.
+#'
+#' @param kerasjs_model The path to the exported KerasJS model, as a string.
+#'
 #' @importFrom servr httd
 #' @importFrom jsonlite toJSON
 #' @export
-kerasjs_preview <- function(hdf5_model, kerasjs_model) {
+kerasjs_preview <- function(model_path, kerasjs_model) {
   path <- tempfile()
   dir.create(path)
 
@@ -63,7 +71,7 @@ kerasjs_preview <- function(hdf5_model, kerasjs_model) {
 
   models_rel_file <- file.path("models", basename(kerasjs_model))
   file_replace(index_path, "\\%KERAJS_MODEL\\%", models_rel_file)
-  file_replace(index_path, "\\%KERAJS_EXAMPLE\\%", toJSON(kerasjs_input_examples(hdf5_model)))
+  file_replace(index_path, "\\%KERAJS_EXAMPLE\\%", toJSON(kerasjs_input_examples(model_path)))
 
   httd(path)
 }

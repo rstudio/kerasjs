@@ -2,19 +2,20 @@
 #'
 #' Converts HDF5 model into KerasJS format.
 #'
-#' @param model_dir The path to the exported model, as a string.
+#' @param model_path The path to the exported HDF5 model, as a string.
 #'
-#' @param target The target path for the converted model.
+#' @param target_path The target path for the converted model.
 #'
-#' @param ... Additional arguments, currently not in use.
+#' @param browse Launch browser with model's runtime?
 #'
 #' @importFrom tools file_path_sans_ext
 #' @export
 kerasjs_convert <- function(
-  model_name = NULL,
-  target = file_path_sans_ext(model_name)
+  model_path = NULL,
+  target_path = file_path_sans_ext(model_path),
+  browse = TRUE
 ) {
-  model_name <- normalizePath(model_name, mustWork = TRUE)
+  model_path <- normalizePath(model_path, mustWork = TRUE)
 
   py_os <- reticulate::import("os")
   py_getcwd <- py_os$getcwd()
@@ -27,8 +28,8 @@ kerasjs_convert <- function(
     "python",
     "encoder.py",
     "-n",
-    target,
-    model_name
+    target_path,
+    model_path
   )
 
   proc <- py_subprocess$Popen(
@@ -46,4 +47,10 @@ kerasjs_convert <- function(
   }
 
   message(stds[[1]])
+
+  if (browse) {
+    kerasjs_preview(model_path, target_path)
+  }
+
+  invisible(target_path)
 }
