@@ -33,6 +33,11 @@ kerasjs_input_examples <- function(hdf5_model) {
   }
 }
 
+kerasjs_preview_source <- function(path) {
+  source_file <- system.file("scafold/source.html", package = "tfconvert")
+  readLines(source_file)
+}
+
 #' @importFrom servr httd
 #' @importFrom jsonlite toJSON
 #' @export
