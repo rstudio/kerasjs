@@ -54,7 +54,7 @@ kerasjs_preview <- function(model_path, kerasjs_model) {
   dir.create(path)
 
   file.copy(
-    file.path(system.file("scafold", package = "tfconvert"), "."),
+    file.path(system.file("scafold", package = "kerasjs"), "."),
     path,
     recursive = TRUE
   )
