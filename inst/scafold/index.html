@@ -110,7 +110,7 @@
           document.getElementById("btnPredict").disabled = false;
         })
         .catch(err => {
-          setOutput(err);
+          setOutput(err.message);
         })
 
       var modelPredict = function() {
@@ -128,7 +128,7 @@
             setOutput(outputData);
           })
           .catch(err => {
-            setOutput(err);
+            setOutput(err.message);
           })
       }
     </script>
