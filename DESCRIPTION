@@ -15,13 +15,11 @@ License: Apache License 2.0
 Encoding: UTF-8
 LazyData: true
 Imports:
+  keras,
   reticulate,
   servr,
   tensorflow
 Suggests:
   testthat
-Remotes:
-  rstudio/reticulate,
-  rstudio/tensorflow
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 6.0.1
