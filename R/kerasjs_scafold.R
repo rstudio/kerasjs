@@ -36,8 +36,8 @@ kerasjs_input_examples <- function(hdf5_model) {
 #' @importFrom servr httd
 #' @importFrom jsonlite toJSON
 #' @export
-kerasjs_scafold <- function(hdf5_model, kerasjs_model, path = "scafold", browse = interactive()) {
-  unlink(path, recursive = TRUE)
+kerasjs_preview <- function(hdf5_model, kerasjs_model) {
+  path <- tempfile()
   dir.create(path)
 
   file.copy(
@@ -60,8 +60,5 @@ kerasjs_scafold <- function(hdf5_model, kerasjs_model, path = "scafold", browse 
   file_replace(index_path, "\\%KERAJS_MODEL\\%", models_rel_file)
   file_replace(index_path, "\\%KERAJS_EXAMPLE\\%", toJSON(kerasjs_input_examples(hdf5_model)))
 
-  if (browse) {
-    message("Launching scafold with: servr::httd(\"", path, "\")")
-    httd(path)
-  }
+  httd(path)
 }
