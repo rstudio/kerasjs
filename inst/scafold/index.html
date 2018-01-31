@@ -35,7 +35,7 @@
         text-align: center;
         text-decoration: none;
         font-size: 16px;
-        float: right;
+        margin-left: auto;
         cursor: pointer;
       }
 
@@ -54,17 +54,20 @@
         width: 100%;
         height: 240px;
         border: solid 1px #CCC;
-        margin: 10px 0 10px 0;
+        margin: 10px 0 30px 0;
       }
 
       nav a {
         text-decoration: none;
         color: #FFF;
       }
+
+      #divPrediction {
+        display: none;
+        margin-bottom: 200px;
+      }
     </style>
-    <script id="srcExample" type="text/json">
-      %KERAJS_EXAMPLE%
-    </script>
+    <script id="srcExample" type="text/json">%KERAJS_EXAMPLE%</script>
   </head>
   <body>
     <nav><a href="https://transcranial.github.io/keras-js/">KerasJS</a></nav>
@@ -72,9 +75,13 @@
       <p>KerasJS: Run Keras models in the browser, with GPU support using WebGL</p>
       <span>Input:</span>
       <div id="aceInput" class="aceEditor"></div>
-      <span>Ouput:</span>
-      <div id="aceOutput" class="aceEditor"></div>
       <button id="btnPredict" disabled="true" onclick="modelPredict();">Predict!</button>
+      <div id="divPrediction">
+        <span>Ouput:</span>
+        <div id="aceOutput" class="aceEditor"></div>
+        <span>Use the following HTML/JavaScript source to get started:</span>
+        <div id="aceSource" class="aceEditor"></div>
+      </div>
     </form>
     <script>
       var aceInput = ace.edit("aceInput");
@@ -86,7 +93,11 @@
           readOnly: true
       })
 
+      var aceSource = ace.edit("aceSource");
+      aceSource.session.setMode("ace/mode/json");
+
       function setOutput(output) {
+        document.getElementById("divPrediction").style.display = "block";
         aceOutput.setValue(JSON.stringify(output, null, 2));
         aceOutput.getSession().selection.clearSelection();
       }
@@ -99,6 +110,31 @@
       function getInput() {
         return aceInput.getValue();
       }
+
+      function getSource(success) {
+        var url = "source.html";
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+          if (xhr.readyState == XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+              if (success !== undefined && xhr.responseText.length > 0) success(xhr.responseText);
+            } else {
+              console.log("ERROR: " + xhr.status);
+            }
+          }
+        }
+        xhr.onerror = function() {
+          console.log("ERROR: " + xhr.statusText);
+        }
+        xhr.open("GET", url, true);
+        xhr.setRequestHeader("Content-type", "text/html");
+        xhr.send();
+      }
+
+      function setSource(source) {
+        aceSource.setValue(source);
+        aceSource.getSession().selection.clearSelection();
+      }
     </script>
     <script>
       var model = new KerasJS.Model({
@@ -108,6 +144,10 @@
 
       var exampleJson = document.getElementById("srcExample").innerHTML;
       setInput(exampleJson);
+
+      getSource(function(data) {
+        setSource(data);
+      })
 
       model
         .ready()
