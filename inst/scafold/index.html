@@ -57,6 +57,9 @@
         margin: 10px 0 10px 0;
       }
     </style>
+    <script id="srcExample" type="text/json">
+      %KERAJS_EXAMPLE%
+    </script>
   </head>
   <body>
     <nav>KerasJS Template</nav>
@@ -82,12 +85,20 @@
         aceOutput.setValue(JSON.stringify(output, null, 2));
         aceOutput.getSession().selection.clearSelection();
       }
+
+      function setInput(input) {
+        aceInput.setValue(JSON.stringify(JSON.parse(input), null, 2));
+        aceInput.getSession().selection.clearSelection();
+      }
     </script>
     <script>
       var model = new KerasJS.Model({
         filepath: "%KERAJS_MODEL%",
         gpu: true
       });
+
+      var exampleJson = document.getElementById("srcExample").innerHTML;
+      setInput(exampleJson);
 
       model
         .ready()
@@ -99,11 +110,13 @@
         })
 
       var modelPredict = function() {
-        var data = Array(784);
-        for (var idx = 0; idx < data.length; idx++) data[idx] = 0;
+        var inputData = JSON.parse(exampleJson);
+        var entryNames = Object.keys(inputData);
+        for (key in entryNames) {
+          var entryName = entryNames[key];
 
-        var inputData = {
-          input: new Float32Array(data)
+          var entry = inputData[entryName];
+          inputData[entryName] = new Float32Array(entry);
         }
 
         model.predict(inputData)
