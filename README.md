@@ -27,6 +27,10 @@ kerasjs_convert(model_path)
 
 ### Runtime
 
-After conversion finished, the model is previewed in the browser. The 'Predict!' button will predict the Keras model in JavaScript:
+After conversion finished, the model is previewed in the browser.
 
-![](tools/readme/kerasjs-runtime.png)
+![](tools/readme/kerasjs-runtime-input.png)
+
+The 'Predict!' button will predict the Keras model in JavaScript, the HTML/JavaScript can be copied as well:
+
+![](tools/readme/kerasjs-runtime-prediction.png)
