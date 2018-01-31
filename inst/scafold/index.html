@@ -90,6 +90,10 @@
         aceInput.setValue(JSON.stringify(JSON.parse(input), null, 2));
         aceInput.getSession().selection.clearSelection();
       }
+
+      function getInput() {
+        return aceInput.getValue();
+      }
     </script>
     <script>
       var model = new KerasJS.Model({
@@ -110,7 +114,7 @@
         })
 
       var modelPredict = function() {
-        var inputData = JSON.parse(exampleJson);
+        var inputData = JSON.parse(getInput());
         var entryNames = Object.keys(inputData);
         for (key in entryNames) {
           var entryName = entryNames[key];
