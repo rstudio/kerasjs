@@ -1,6 +1,6 @@
-Package: tfconvert
+Package: kerasjs
 Type: Package
-Title: tfconvert: Convert TensorFlow Models
+Title: kerasjs: Run Keras models in the browser, with GPU support using WebGL
 Version: 0.1.0
 Authors@R: c(
     person("Javier", "Luraschi", email = "javier@rstudio.com", role = c("aut", "cre")),
@@ -8,17 +8,16 @@ Authors@R: c(
     person(family = "Ajax.org B.V.", role=c("ctb", "cph"), comment="Ace"),
     person(family = "RStudio", role = c("cph"))
   )
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
-License: Apache License 2.0
+Maintainer: Javier Luraschi <javier@rstudio.com>
+Description: Create, run and preview Keras models in the browser, with GPU
+  support using WebGL.
+License: MIT
 Encoding: UTF-8
 LazyData: true
 Imports:
   keras,
   reticulate,
-  servr,
-  tensorflow
+  servr
 Suggests:
   testthat
 Roxygen: list(markdown = TRUE)
