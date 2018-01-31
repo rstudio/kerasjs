@@ -2,14 +2,17 @@
 #'
 #' Converts HDF5 model into KerasJS format.
 #'
-#' @inheritParams convert_hdf5model
+#' @param model_dir The path to the exported model, as a string.
+#'
+#' @param target The target path for the converted model.
+#'
+#' @param ... Additional arguments, currently not in use.
 #'
 #' @importFrom tools file_path_sans_ext
 #' @export
-convert_hdf5model.kerasjs_conversion <- function(
+kerasjs_convert <- function(
   model_name = NULL,
-  target = file_path_sans_ext(model_name),
-  ...
+  target = file_path_sans_ext(model_name)
 ) {
   model_name <- normalizePath(model_name, mustWork = TRUE)
 
