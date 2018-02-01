@@ -1,6 +1,6 @@
 Package: kerasjs
 Type: Package
-Title: kerasjs: Run Keras models in the browser, with GPU support using WebGL
+Title: Run Keras models in the browser
 Version: 0.1.0
 Authors@R: c(
     person("Javier", "Luraschi", email = "javier@rstudio.com", role = c("aut", "cre")),
