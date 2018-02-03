@@ -7,16 +7,15 @@ file_replace <- function(path, pattern, replacement) {
 tensor_build_example <- function(tensor) {
   layer_dims <- tensor$shape$as_list()
   sequence_dim <- Filter(is.integer, layer_dims)
-  rep(0, sequence_dim)
+  input_array <- array(0, dim = unlist(sequence_dim))
+  list(input = input_array)
 }
 
 #' @importFrom keras load_model_hdf5
 kerasjs_input_examples <- function(model_path) {
   model <- load_model_hdf5(model_path, compile = FALSE)
   if ("keras.models.Sequential" %in% class(model)) {
-    list(
-      input = tensor_build_example(model$input)
-    )
+    input = tensor_build_example(model$input)
   }
   else {
     example <- lapply(
@@ -71,7 +70,9 @@ kerasjs_preview <- function(model_path, kerasjs_model) {
 
   models_rel_file <- file.path("models", basename(kerasjs_model))
   file_replace(index_path, "\\%KERAJS_MODEL\\%", models_rel_file)
-  file_replace(index_path, "\\%KERAJS_EXAMPLE\\%", toJSON(kerasjs_input_examples(model_path)))
+  file_replace(index_path,
+               "\\%KERAJS_EXAMPLE\\%",
+               toJSON(kerasjs_input_examples(model_path)))
 
   httd(path)
 }
