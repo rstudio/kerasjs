@@ -25,7 +25,7 @@ kerasjs_convert <- function(
 
   py_os <- reticulate::import("os")
   py_getcwd <- py_os$getcwd()
-  py_os$chdir(system.file("python", package = "tfconvert"))
+  py_os$chdir(system.file("python", package = "kerasjs"))
   on.exit(py_os$chdir(py_getcwd), add = TRUE)
 
   py_subprocess <- reticulate::import("subprocess")

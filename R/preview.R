@@ -34,7 +34,7 @@ kerasjs_input_examples <- function(model_path) {
 }
 
 kerasjs_preview_source <- function(path) {
-  source_file <- system.file("scafold/source.html", package = "tfconvert")
+  source_file <- system.file("scafold/source.html", package = "kerasjs")
   readLines(source_file)
 }
 
