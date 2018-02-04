@@ -7,7 +7,8 @@ file_replace <- function(path, pattern, replacement) {
 tensor_build_example <- function(tensor) {
   layer_dims <- tensor$shape$as_list()
   sequence_dim <- Filter(is.integer, layer_dims)
-  rep(0, sequence_dim)
+  sequence_elems <- prod(as.numeric(sequence_dim))
+  rep(0, sequence_elems)
 }
 
 #' @importFrom keras load_model_hdf5
