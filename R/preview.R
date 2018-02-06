@@ -15,7 +15,9 @@ tensor_build_example <- function(tensor) {
 kerasjs_input_examples <- function(model_path) {
   model <- load_model_hdf5(model_path, compile = FALSE)
   if ("keras.models.Sequential" %in% class(model)) {
-    input = tensor_build_example(model$input)
+    list(
+      input = tensor_build_example(model$input)
+    )
   }
   else {
     example <- lapply(
