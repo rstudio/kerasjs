@@ -38,21 +38,24 @@ kerasjs_convert <- function(
     model_path
   )
 
+  sub_stdout <- if (.Platform$OS.type == "windows") NULL else py_subprocess$PIPE
+  sub_stderr <- if (.Platform$OS.type == "windows") NULL else py_subprocess$STDOUT
+
   proc <- py_subprocess$Popen(
-    paste(convert_cmds, collapse = " "),
+    paste(shQuote(convert_cmds), collapse = " "),
     shell = TRUE,
-    stdout = py_subprocess$PIPE,
-    stderr = py_subprocess$STDOUT,
-    close_fds = TRUE)
+    stdout = sub_stdout,
+    stderr = sub_stderr,
+    close_fds = .Platform$OS.type != "windows")
 
   stds <- proc$communicate()
 
   exitcode <- proc$returncode
-  if (exitcode != 0) {
+  if (!is.null(exitcode) && exitcode != 0) {
     stop("Conversion failed:\n", stds[[1]], "\n", stds[[2]])
   }
 
-  message(stds[[1]])
+  if (!is.null(stds[[1]])) message(stds[[1]])
 
   if (browse) {
     kerasjs_preview(model_path, target_file)
