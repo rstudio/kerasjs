@@ -14,16 +14,22 @@ tensor_build_example <- function(tensor) {
 #' @importFrom keras load_model_hdf5
 kerasjs_input_examples <- function(model_path) {
   model <- load_model_hdf5(model_path, compile = FALSE)
-  if ("keras.models.Sequential" %in% class(model)) {
+  if ("keras.models.Sequential" %in% class(model) ||
+      "keras.engine.sequential.Sequential" %in% class(model)) {
     list(
       input = tensor_build_example(model$input)
     )
   }
   else {
-    example <- lapply(
-      model$input_layers,
-      function(layer) tensor_build_example(layer$input)
-    )
+    if ("input_layers" %in% names(model)) {
+      example <- lapply(
+        model$input_layers,
+        function(layer) tensor_build_example(layer$input)
+      )
+    }
+    else {
+      example <- tensor_build_example(model$input)
+    }
 
     names(example) <- lapply(
       model$input_layers,
@@ -35,7 +41,7 @@ kerasjs_input_examples <- function(model_path) {
 }
 
 kerasjs_preview_source <- function(path) {
-  source_file <- system.file("scafold/source.html", package = "kerasjs")
+  source_file <- system.file("preview/source.html", package = "kerasjs")
   readLines(source_file)
 }
 
@@ -55,7 +61,7 @@ kerasjs_preview <- function(model_path, kerasjs_model) {
   dir.create(path)
 
   file.copy(
-    file.path(system.file("scafold", package = "kerasjs"), "."),
+    file.path(system.file("preview", package = "kerasjs"), "."),
     path,
     recursive = TRUE
   )
